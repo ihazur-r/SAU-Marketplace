@@ -393,10 +393,16 @@ body::after {
 }
 /* ===== DROP PAGE ===== */
 .drop-container {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 380px;
+  margin: 140px auto 40px;
+  padding: 30px;
+
+  background: rgba(20,20,20,0.85);
+  backdrop-filter: blur(18px);
+
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
 
   width: 380px;
   padding: 30px;
@@ -547,4 +553,96 @@ body {
 .grab-header,
 .item-grid {
   width: 100%;
+}
+
+/* FIX OVERLAP */
+
+
+/* IMAGE LABELS */
+.img-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.img-wrapper p {
+  font-size: 12px;
+  color: #aaa;
+}
+/* ===== OLX IMAGE UPLOAD ===== */
+
+.image-upload {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.main-img-box {
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  color: #888;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.side-images {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.small-img-box {
+  width: 60px;
+  height: 55px;
+  background: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.main-img-box input,
+.small-img-box input {
+  display: none;
+}
+
+.main-img-box img,
+.small-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== DROP FORM SPACING FIX ===== */
+.drop-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;   /* increased spacing */
+}
+
+/* extra breathing space for image section */
+.image-upload {
+  margin: 15px 0;
+}
+
+/* button spacing */
+.drop-container button {
+  margin-top: 10px;
 }
