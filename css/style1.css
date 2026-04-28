@@ -384,3 +384,256 @@ body, html {
     color: #ffffff;
     margin-bottom: 10px;
 }
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 1000;
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin-right: 100px;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-yellow);
+}
+
+/* Floating Side Menu */
+.side-menu {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.menu-trigger {
+    background: var(--accent-yellow);
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(252, 232, 146, 0.3);
+    margin-bottom: 10px;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.4s ease;
+    pointer-events: none;
+}
+
+/* Hover effect to pop out the buttons */
+.side-menu:hover .menu-content {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.menu-btn {
+    padding: 12px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-glass);
+    transition: 0.3s;
+}
+
+.login { background: rgba(255,255,255,0.1); color: white; }
+.signup { background: var(--accent-yellow); color: #000; }
+
+.menu-btn:hover {
+    transform: scale(1.1);
+}
+/* --- Professional Navbar Over Image --- */
+
+.navbar-transparent {
+    position: absolute; /* Place it OVER the hero image */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100; /* Ensure it stays above everything */
+    padding: 20px 0; /* Vertical padding */
+    background: transparent; /* KEY: Remove background color */
+}
+
+/* Container to handle centering and max-width */
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Links center, Buttons right */
+    align-items: center;
+    padding: 0 40px; /* Horizontal padding */
+}
+
+/* Center Links: Making them Horizontal */
+.nav-links-horizontal {
+    list-style: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Make children horizontal */
+    gap: 30px; /* Space between links */
+}
+
+/* Base style for About/Roadmap links */
+.nav-item {
+    color: #ffffff; /* White text for contrast */
+    text-decoration: none; /* Remove underline */
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s ease;
+    opacity: 0.8;
+}
+
+/* Hover/Click state for center links: Change to Yellow */
+.nav-item:hover,
+.nav-item:focus {
+    color: var(--accent-yellow); /* Yellow color */
+    opacity: 1;
+}
+
+/* --- Right Side: Separate Entry Buttons --- */
+
+.nav-right-portal {
+    display: flex;
+    gap: 15px; /* Space between the two buttons */
+}
+
+/* Base button style (Shared) */
+.portal-btn {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 10px 22px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Login Button: Subtle, glass-like */
+.btn-login {
+    background: rgba(255, 255, 255, 0.05); /* Transparent card-bg */
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-login:hover {
+    background: rgba(255, 255, 255, 0.15); /* Slightly brighter on hover */
+    transform: translateY(-2px);
+}
+
+/* Sign Up Button: Matches your existing theme's accent yellow */
+.btn-signup {
+    background-color: var(--accent-yellow); /* The exact color from image_2.png */
+    color: #000000; /* Dark text for readability */
+}
+
+.btn-signup:hover {
+    background-color: #ffd74d; /* Slightly different yellow on hover */
+    box-shadow: 0 4px 15px rgba(252, 232, 146, 0.3); /* Soft glow */
+    transform: translateY(-2px);
+}
+/* --- Extreme Top Right Login Layout --- */
+
+.navbar-transparent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    padding: 25px 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Pushes spacer left, links center, button right */
+    align-items: center;
+    padding: 0 40px; /* Adjust this to change how 'extreme' the corner is */
+}
+
+/* Keeps the About/Roadmap links exactly in the center */
+.nav-left-spacer {
+    flex: 1;
+}
+.nav-center-wrapper {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+.nav-right-portal {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Horizontal Link Styling */
+.nav-links-horizontal {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    color: var(--accent-yellow);
+}
+
+/* The Single Accent Login Button */
+.btn-login-accent {
+    background-color: var(--accent-yellow);
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 28px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(252, 232, 146, 0.2);
+}
+
+.btn-login-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(252, 232, 146, 0.4);
+    background-color: #ffd74d; /* Slightly deeper yellow */
+}
