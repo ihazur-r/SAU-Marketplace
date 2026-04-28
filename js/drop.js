@@ -1,5 +1,28 @@
 // ===============================
-// ADD PRODUCT (DROP PAGE ONLY)
+// IMAGE HANDLING
+// ===============================
+let selectedImages = [null, null, null];
+
+function handleImage(input, index) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    selectedImages[index] = e.target.result;
+
+    // show preview
+    const box = input.parentElement;
+    box.innerHTML = `<img src="${e.target.result}">`;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+// ===============================
+// ADD PRODUCT (DROP PAGE)
 // ===============================
 function addProduct() {
   const title = document.getElementById("itemName").value.trim();
@@ -7,34 +30,33 @@ function addProduct() {
   const category = document.getElementById("category").value;
   const condition = document.getElementById("condition").value;
   const age = document.getElementById("age").value;
-
-  // get user from login
-  const user = localStorage.getItem("user") || "SAU Student";
+  const about = document.getElementById("description").value.trim();
 
   if (!title || !price || !category) {
     alert("Fill required fields");
     return;
   }
 
-  // get existing products
+  // collect images
+  const images = selectedImages.filter(img => img !== null);
+
   let products = JSON.parse(localStorage.getItem("products")) || [];
 
   const newItem = {
     title,
     price,
     category,
-    location: user,
     condition,
-    age
+    age,
+    about,
+    images
   };
 
   products.push(newItem);
 
-  // save to localStorage
   localStorage.setItem("products", JSON.stringify(products));
 
   alert("Item added successfully!");
 
-  // redirect to grab page
   window.location.href = "grab.html";
 }
