@@ -48,7 +48,7 @@ function renderItems(list) {
         <p class="price" style="color: #fce892; font-weight: bold; font-size: 1.2rem;">₹${item.price}</p>
         
         <p style="color:#ccc; font-size: 0.85rem; margin: 8px 0;">
-            ${item.condition} | ${item.location}
+            ${item.condition} | ${item.location} | <span style="color:#fce892;">${item.age}</span>
         </p>
 
         <hr style="border: 0.1px solid rgba(255,255,255,0.1); margin: 10px 0;">
