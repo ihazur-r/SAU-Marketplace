@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Item</title>
 
-  <link rel="stylesheet" href="../css/style.css?v=25">
+  <link rel="stylesheet" href="../css/style.css?v=30">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="brand-header">
   <h1>Post Your Item</h1>
 </div>
 
+<!-- FORM -->
 <div class="drop-container">
 
   <form onsubmit="event.preventDefault(); addProduct();">
@@ -34,7 +36,7 @@
     <!-- DESCRIPTION -->
     <textarea id="description" placeholder="About the item"></textarea>
 
-    <!-- AGE (NEW) -->
+    <!-- AGE -->
     <select id="age">
       <option value="">How old is the item?</option>
       <option value="Less than 1 month">Less than 1 month</option>
@@ -53,6 +55,32 @@
       <option value="Like New">Like New</option>
       <option value="Used">Used</option>
     </select>
+
+    <!-- IMAGE UPLOAD (OLX STYLE) -->
+    <div class="image-upload">
+
+      <!-- BIG IMAGE -->
+      <label class="main-img-box">
+        +
+        <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 0)">
+      </label>
+
+      <!-- SMALL IMAGES -->
+      <div class="side-images">
+
+        <label class="small-img-box">
+          +
+          <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 1)">
+        </label>
+
+        <label class="small-img-box">
+          +
+          <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 2)">
+        </label>
+
+      </div>
+
+    </div>
 
     <button type="submit">Post Item</button>
 
