@@ -1,4 +1,6 @@
-
+// ===============================
+// IMAGE HANDLING
+// ===============================
 let selectedImages = [null, null, null];
 
 function handleImage(input, index) {
@@ -9,18 +11,18 @@ function handleImage(input, index) {
 
   reader.onload = function (e) {
     selectedImages[index] = e.target.result;
-
-    
-    const box = input.parentElement;
-    box.innerHTML = `<img src="${e.target.result}">`;
   };
 
   reader.readAsDataURL(file);
 }
 
 
+// ===============================
+// ADD PRODUCT
+// ===============================
+async function addProduct() {
+  console.log("Button clicked");
 
-function addProduct() {
   const title = document.getElementById("itemName").value.trim();
   const price = document.getElementById("price").value.trim();
   const category = document.getElementById("category").value;
@@ -33,26 +35,36 @@ function addProduct() {
     return;
   }
 
-  // collect images
   const images = selectedImages.filter(img => img !== null);
-
-  let products = JSON.parse(localStorage.getItem("products")) || [];
 
   const newItem = {
     title,
-    price,
+    price: Number(price),
     category,
     condition,
     age,
-    about,
+    description: about,
     images
   };
 
-  products.push(newItem);
+  try {
+    const res = await fetch("http://localhost:5000/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newItem)
+    });
 
-  localStorage.setItem("products", JSON.stringify(products));
+    const data = await res.json();
+    console.log("Saved:", data);
 
-  alert("Item added successfully!");
+    alert("Item added successfully! ✅");
 
-  window.location.href = "grab.html";
+    window.location.href = "grab.html";
+
+  } catch (err) {
+    console.error(err);
+    alert("Error saving product ❌");
+  }
 }
