@@ -1,20 +1,24 @@
 let products = [];
 
-fetch("../data/products.json")
+// ===============================
+// LOAD DATA
+// ===============================
+fetch("http://localhost:5000/api/products")
   .then(res => res.json())
   .then(data => {
-    const stored = JSON.parse(localStorage.getItem("products")) || [];
+    console.log(data);
 
-    products = [...data, ...stored];
+    products = data;   // ONLY backend data
 
     renderItems(products);
   })
-  .catch(() => {
-    products = JSON.parse(localStorage.getItem("products")) || [];
-    renderItems(products);
+  .catch(err => {
+    console.log(err);
   });
 
-
+// ===============================
+// RENDER ITEMS
+// ===============================
 function renderItems(list) {
   const grid = document.getElementById("itemGrid");
 
@@ -55,6 +59,10 @@ function renderItems(list) {
   });
 }
 
+
+// ===============================
+// SEARCH
+// ===============================
 function searchItems() {
   const value = document.getElementById("searchInput").value.toLowerCase();
 
@@ -65,6 +73,10 @@ function searchItems() {
   renderItems(filtered);
 }
 
+
+// ===============================
+// AGE CONVERTER
+// ===============================
 function getAgeValue(age) {
   if (!age) return 999;
 
@@ -77,6 +89,10 @@ function getAgeValue(age) {
   return 999;
 }
 
+
+// ===============================
+// SORT
+// ===============================
 function sortItems() {
   const value = document.getElementById("sortSelect").value;
 
