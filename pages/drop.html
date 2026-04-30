@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Item</title>
 
-  <link rel="stylesheet" href="../css/style.css?v=30">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -19,7 +18,7 @@
 
   <form onsubmit="event.preventDefault(); addProduct();">
 
-
+    <!-- CATEGORY -->
     <select id="category" required>
       <option value="">Select Category</option>
       <option value="Books">Books</option>
@@ -28,13 +27,13 @@
       <option value="Others">Others</option>
     </select>
 
-    
+    <!-- ITEM NAME -->
     <input type="text" id="itemName" placeholder="Item Name" required>
 
-    
+    <!-- DESCRIPTION -->
     <textarea id="description" placeholder="About the item"></textarea>
 
-   
+    <!-- AGE -->
     <select id="age">
       <option value="">How old is the item?</option>
       <option value="Less than 1 month">Less than 1 month</option>
@@ -44,42 +43,41 @@
       <option value="1+ year">1+ year</option>
     </select>
 
-    
+    <!-- PRICE -->
     <input type="number" id="price" placeholder="Price (₹)" required>
 
-    
+    <!-- CONDITION -->
     <select id="condition">
       <option value="New">New</option>
       <option value="Like New">Like New</option>
       <option value="Used">Used</option>
     </select>
 
-   
+    <!-- IMAGE UPLOAD -->
     <div class="image-upload">
 
-      
       <label class="main-img-box">
         +
-        <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 0)">
+        <input type="file" accept="image/*" onchange="handleImage(this, 0)">
       </label>
 
-     
       <div class="side-images">
 
         <label class="small-img-box">
           +
-          <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 1)">
+          <input type="file" accept="image/*" onchange="handleImage(this, 1)">
         </label>
 
         <label class="small-img-box">
           +
-          <input type="file" accept="image/*" capture="environment" onchange="handleImage(this, 2)">
+          <input type="file" accept="image/*" onchange="handleImage(this, 2)">
         </label>
 
       </div>
 
     </div>
 
+    <!-- BUTTON -->
     <button type="submit">Post Item</button>
 
   </form>
