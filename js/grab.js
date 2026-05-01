@@ -6,116 +6,129 @@ let products = [];
 // LOAD DATA
 // ===============================
 fetch(`${API}/products`)
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
+.then(res => res.json())
+.then(data => {
+console.log("Fetched products:", data);
 
-    products = data;
+```
+products = data;
+renderItems(products);
+```
 
-    renderItems(products);
-  })
-  .catch(err => {
-    console.log("Error fetching products:", err);
-  });
+})
+.catch(err => {
+console.log("Error fetching products:", err);
+});
 
 // ===============================
 // RENDER ITEMS
 // ===============================
 function renderItems(list) {
-  const grid = document.getElementById("itemGrid");
+const grid = document.getElementById("itemGrid");
 
-  if (!grid) return;
+if (!grid) return;
 
-  grid.innerHTML = "";
+grid.innerHTML = "";
 
-  if (!list || list.length === 0) {
-    grid.innerHTML = "<p style='color:white;'>No items found</p>";
-    return;
-  }
+if (!list || list.length === 0) {
+grid.innerHTML = "<p style='color:white;'>No items found</p>";
+return;
+}
 
-  list.forEach((item) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+list.forEach((item) => {
+const card = document.createElement("div");
+card.classList.add("card");
 
-    // safe image handling
-    const imgSrc =
-      item.images?.[0] ||
-      item.image ||
-      "https://via.placeholder.com/150";
+```
+// ✅ FIXED IMAGE HANDLING
+let imgSrc;
 
-    card.innerHTML = `
-      <img src="${imgSrc}" style="width:100%; height:150px; object-fit:cover; border-radius:12px;">
+if (typeof item.images === "string") {
+  imgSrc = item.images; // base64 string
+} else if (Array.isArray(item.images)) {
+  imgSrc = item.images[0];
+} else {
+  imgSrc = item.image || "https://via.placeholder.com/150";
+}
 
-      <h3>${item.title || "No Title"}</h3>
-      <p class="price">₹${item.price || "N/A"}</p>
+console.log("Image source:", imgSrc); // debug
 
-      <p style="color:#ccc;">${item.about || ""}</p>
+card.innerHTML = `
+  <img src="${imgSrc}" loading="lazy"
+    style="width:100%; height:150px; object-fit:cover; border-radius:12px;">
 
-      <div>
-        <span>${item.condition || "N/A"}</span> |
-        <span>${item.age || "N/A"}</span>
-      </div>
+  <h3>${item.title || "No Title"}</h3>
+  <p class="price">₹${item.price || "N/A"}</p>
 
-      <p style="color:#aaa;">👤 ${item.seller || "Unknown"}</p>
-      <p style="color:#d4af37;">📞 ${item.mobile || "N/A"}</p>
-    `;
+  <p style="color:#ccc;">${item.about || ""}</p>
 
-    grid.appendChild(card);
-  });
+  <div>
+    <span>${item.condition || "N/A"}</span> |
+    <span>${item.age || "N/A"}</span>
+  </div>
+
+  <p style="color:#aaa;">👤 ${item.seller || "Unknown"}</p>
+  <p style="color:#d4af37;">📞 ${item.mobile || "N/A"}</p>
+`;
+
+grid.appendChild(card);
+```
+
+});
 }
 
 // ===============================
 // SEARCH
 // ===============================
 function searchItems() {
-  const value = document.getElementById("searchInput").value.toLowerCase();
+const value = document.getElementById("searchInput").value.toLowerCase();
 
-  const filtered = products.filter(item =>
-    (item.title || "").toLowerCase().includes(value)
-  );
+const filtered = products.filter(item =>
+(item.title || "").toLowerCase().includes(value)
+);
 
-  renderItems(filtered);
+renderItems(filtered);
 }
 
 // ===============================
 // AGE CONVERTER
 // ===============================
 function getAgeValue(age) {
-  if (!age) return 999;
+if (!age) return 999;
 
-  if (age.includes("Less than")) return 1;
-  if (age.includes("1-3")) return 2;
-  if (age.includes("3-6")) return 3;
-  if (age.includes("6-12")) return 4;
-  if (age.includes("1+")) return 5;
+if (age.includes("Less than")) return 1;
+if (age.includes("1-3")) return 2;
+if (age.includes("3-6")) return 3;
+if (age.includes("6-12")) return 4;
+if (age.includes("1+")) return 5;
 
-  return 999;
+return 999;
 }
 
 // ===============================
 // SORT
 // ===============================
 function sortItems() {
-  const value = document.getElementById("sortSelect").value;
+const value = document.getElementById("sortSelect").value;
 
-  let sorted = [...products];
+let sorted = [...products];
 
-  if (value === "priceLow") {
-    sorted.sort((a, b) => Number(a.price) - Number(b.price));
-  }
+if (value === "priceLow") {
+sorted.sort((a, b) => Number(a.price) - Number(b.price));
+}
 
-  else if (value === "priceHigh") {
-    sorted.sort((a, b) => Number(b.price) - Number(a.price));
-  }
+else if (value === "priceHigh") {
+sorted.sort((a, b) => Number(b.price) - Number(a.price));
+}
 
-  else if (value === "ageNew") {
-    sorted.sort((a, b) => getAgeValue(a.age) - getAgeValue(b.age));
-  }
+else if (value === "ageNew") {
+sorted.sort((a, b) => getAgeValue(a.age) - getAgeValue(b.age));
+}
 
-  else if (value === "ageOld") {
-    sorted.sort((a, b) => getAgeValue(b.age) - getAgeValue(a.age));
-  }
+else if (value === "ageOld") {
+sorted.sort((a, b) => getAgeValue(b.age) - getAgeValue(a.age));
+}
 
-  products = sorted;
-  renderItems(products);
+products = sorted;
+renderItems(products);
 }
