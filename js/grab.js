@@ -1,19 +1,21 @@
+const API = "https://sau-marketplace.onrender.com/api";
+
 let products = [];
 
 // ===============================
 // LOAD DATA
 // ===============================
-fetch("http://localhost:5000/api/products")
+fetch(`${API}/products`)
   .then(res => res.json())
   .then(data => {
     console.log(data);
 
-    products = data;   // ONLY backend data
+    products = data;
 
     renderItems(products);
   })
   .catch(err => {
-    console.log(err);
+    console.log("Error fetching products:", err);
   });
 
 // ===============================
@@ -26,7 +28,7 @@ function renderItems(list) {
 
   grid.innerHTML = "";
 
-  if (list.length === 0) {
+  if (!list || list.length === 0) {
     grid.innerHTML = "<p style='color:white;'>No items found</p>";
     return;
   }
@@ -35,30 +37,32 @@ function renderItems(list) {
     const card = document.createElement("div");
     card.classList.add("card");
 
-    // use first image if multiple exist
-    const imgSrc = item.images ? item.images[0] : item.image;
+    // safe image handling
+    const imgSrc =
+      item.images?.[0] ||
+      item.image ||
+      "https://via.placeholder.com/150";
 
     card.innerHTML = `
       <img src="${imgSrc}" style="width:100%; height:150px; object-fit:cover; border-radius:12px;">
 
-      <h3>${item.title}</h3>
-      <p class="price">₹${item.price}</p>
+      <h3>${item.title || "No Title"}</h3>
+      <p class="price">₹${item.price || "N/A"}</p>
 
       <p style="color:#ccc;">${item.about || ""}</p>
 
       <div>
-        <span>${item.condition}</span> |
+        <span>${item.condition || "N/A"}</span> |
         <span>${item.age || "N/A"}</span>
       </div>
 
-      <p style="color:#aaa;">👤 ${item.seller}</p>
-      <p style="color:#d4af37;">📞 ${item.mobile}</p>
+      <p style="color:#aaa;">👤 ${item.seller || "Unknown"}</p>
+      <p style="color:#d4af37;">📞 ${item.mobile || "N/A"}</p>
     `;
 
     grid.appendChild(card);
   });
 }
-
 
 // ===============================
 // SEARCH
@@ -67,12 +71,11 @@ function searchItems() {
   const value = document.getElementById("searchInput").value.toLowerCase();
 
   const filtered = products.filter(item =>
-    item.title.toLowerCase().includes(value)
+    (item.title || "").toLowerCase().includes(value)
   );
 
   renderItems(filtered);
 }
-
 
 // ===============================
 // AGE CONVERTER
@@ -88,7 +91,6 @@ function getAgeValue(age) {
 
   return 999;
 }
-
 
 // ===============================
 // SORT
