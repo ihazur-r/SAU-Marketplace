@@ -1,3 +1,6 @@
+// ================= BASE API =================
+const API = "https://sau-marketplace.onrender.com/api";
+
 // ===============================
 // FORM SWITCHING
 // ===============================
@@ -28,7 +31,7 @@ async function login() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/login", {
+    const res = await fetch(`${API}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -70,7 +73,7 @@ async function register() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/register", {
+    const res = await fetch(`${API}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -108,7 +111,7 @@ async function sendOTP() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/send-otp", {
+    const res = await fetch(`${API}/send-otp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -125,7 +128,6 @@ async function sendOTP() {
 
     alert("OTP sent to email 📩");
 
-    // move to reset screen
     showReset();
 
   } catch (err) {
@@ -149,7 +151,7 @@ async function resetPassword() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/reset-password", {
+    const res = await fetch(`${API}/reset-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -173,6 +175,11 @@ async function resetPassword() {
     alert("Server error ❌");
   }
 }
+
+
+// ===============================
+// RESEND OTP
+// ===============================
 async function resendOTP() {
   const email = document.getElementById("forgotEmail").value.trim();
 
@@ -182,7 +189,7 @@ async function resendOTP() {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/send-otp", {
+    const res = await fetch(`${API}/send-otp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -197,7 +204,7 @@ async function resendOTP() {
       return;
     }
 
-    alert("New OTP sent 📩");
+    alert("OTP resent 📩");
 
   } catch (err) {
     console.error(err);
@@ -217,52 +224,18 @@ function goDrop() {
   window.location.href = "drop.html";
 }
 
+
 // ===============================
 // GOOGLE LOGIN HANDLER
 // ===============================
 function handleCredentialResponse(response) {
   console.log("Google JWT:", response.credential);
 
-  // Decode JWT (basic frontend decode)
   const data = JSON.parse(atob(response.credential.split('.')[1]));
 
-  console.log("User Info:", data);
-
-  // Save user locally (temporary)
   localStorage.setItem("user", data.email);
 
   alert("Google Login Successful ✅");
 
   window.location.href = "choice.html";
-}
-
-
-// ===============================
-// RESEND OTP
-// ===============================
-async function resendOTP() {
-  const email = document.getElementById("forgotEmail").value.trim();
-
-  if (!email) {
-    alert("Enter email first");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/send-otp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
-    });
-
-    const data = await res.json();
-
-    alert("OTP resent 📩");
-
-  } catch (err) {
-    console.error(err);
-    alert("Failed to resend OTP ❌");
-  }
 }
