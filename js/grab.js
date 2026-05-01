@@ -1,3 +1,4 @@
+console.log("🔥 GRAB JS LOADED");
 const API = "https://sau-marketplace.onrender.com/api";
 
 let products = [];
