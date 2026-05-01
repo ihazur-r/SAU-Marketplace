@@ -16,7 +16,7 @@ app.use(express.json());
 const PORT = process.env.PORT||5000;
 console.log("EMAIL_USER:", process.env.EMAIL_USER);
 console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "OK" : "MISSING");
-console.log("MONGO_URL:", process.env.MONGO_URL ? "OK" : "MISSING");
+
 // ===============================
 // EMAIL TRANSPORTER
 // ===============================
@@ -31,7 +31,7 @@ const transporter = nodemailer.createTransport({
 // ===============================
 // CONNECT TO MONGODB
 // ===============================
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect("mongodb+srv://hazur2708_db_user:<Hazur%23786>@sau-marketplace.rnpihvj.mongodb.net/?appName=sau-marketplace")
   .then(() => {
     console.log("MongoDB Connected ✅");
 
